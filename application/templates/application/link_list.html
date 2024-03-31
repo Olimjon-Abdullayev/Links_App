@@ -1,0 +1,44 @@
+{% extends "application/_base.html" %}
+{% block content %}
+
+<div class="flex justify-center items-center w-full h-32 text-4xl font-bold"> All My_Links</div>
+
+<div class="lg:w-3/4 text-center w-full mx-auto overflow-auto"> 
+    <table class="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
+            <tr>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100 rounded-t1 rounded-b1"> Text</th>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Url</th>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Profile</th>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Edit</th>
+                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-lg bg-gray-100">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for link in object_list%}
+            <tr>
+                <td class="px-4 py-3 text-lg">{{link.text}}</td>
+                <td class="px-4 py-3 text-lg underline text-purple-900">
+                    <a href="{{link.url}}" target="_blank">
+                        {{link.url}}
+                    </a>
+                </td>
+                {% comment %} <td class="px-4 py-3 text-lg">{{link.profile.name}}</td> {% endcomment %}
+                <td class="px-4 py-3 rounded-2xl bg-blue-300 text-center hover:bg-blue-400">
+                    <a href=" {% url "profile" link.profile.slug %}">
+                        {{link.profile.name}} 
+                </td>
+                <td class="px-4 py-3 text-center  text-lg  rounded-2xl bg-green-300 hover:bg-green-400"> <a href="{% url 'link-update' link.id  %}">Edit</a></td>
+                <td class="px-4 py-3  text-center rounded-2xl bg-red-400 text-lg hover:bg-red-500"> <a href="{% url 'link-delete' link.id  %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    <a href="{% url "link-create"  %}">
+    <p class="mt-6 py-2 w-full border rounded border-gray-400 text-center text-lg text-gray-900 hover:bg-gray-300">Add New +  </p> </a>
+</div>
+
+{% endblock content %}
+
+
+
